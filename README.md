@@ -158,7 +158,7 @@ Basta abrir o arquivo `index.html` no navegador.
 
 ## Autor
 
-- Desenvolvido por [Seu Nome]
+- Desenvolvido por [Nicolas, Amanda, Wesley, natanael, fernanda.]
 - Projeto acadêmico para demonstração de integração frontend + backend + banco de dados na nuvem.
 
 ---
