@@ -146,13 +146,13 @@ Basta abrir o arquivo `index.html` no navegador.
 ## Screenshots
 
 ### Tela de Cadastro de Aluno
-![Tela de cadastro de aluno](./tela-cadatro.jpg)
+![Tela de cadastro de aluno](./tela-cadastro.jpg)
 
 ### Detalhes das Notas do Aluno
 ![Detalhes das notas do aluno](./tela-detalhes.jpg)
 
 ### Lista de Alunos
-![Lista de alunos](./tela-lista-alino.jpg)
+![Lista de alunos](./tela-lista-alunos.jpg)
 
 ---
 
