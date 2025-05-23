@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Alunos</title>
+    <style>
+        :root {
+            --primary: #00f5a8;
+            --secondary: #00d2ff;
+            --accent: #ff00c8;
+            --bg: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --border: #2c2c2c;
+            --muted: #9e9e9e;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg);
+            color: #e0e0e0;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+        header, section {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 30px rgba(0, 245, 168, 0.1);
+            transition: 0.4s ease;
+        }
+        header:hover, section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 245, 168, 0.3), 0 0 80px rgba(0, 210, 255, 0.2);
+        }
+        h1, h2, h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-shadow: 0 0 8px var(--primary), 0 0 20px var(--primary);
+        }
+        h1 { font-size: 2.2rem; }
+        h2 { font-size: 1.6rem; }
+        h3 { font-size: 1.2rem; }
+        form label {
+            display: block;
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: rgba(255, 255, 255, 0.07);
+        }
+        button {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px var(--primary), 0 0 20px var(--secondary);
+        }
+        button:hover {
+            transform: scale(1.06);
+            box-shadow: 0 0 20px var(--primary), 0 0 40px var(--secondary), 0 0 60px var(--accent);
+        }
+        button:active {
+            transform: scale(0.96);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background-color: rgba(0, 245, 168, 0.08);
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+        }
+        td {
+            color: #d0d0d0;
+        }
+        tr:hover {
+            background-color: rgba(0, 245, 168, 0.05);
+        }
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            th, td {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="mensagem"></div>
+    <header>
+        <h1>Sistema de Cadastro de Alunos</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Cadastro de Alunos</h2>
+            <form id="formCadastro">
+                <label for="nome">Nome:</label><br>
+                <input type="text" id="nome" name="nome"><br><br>
+                <label for="matricula">Matrícula:</label><br>
+                <input type="text" id="matricula" name="matricula"><br><br>
+                <label for="email">E-mail:</label><br>
+                <input type="email" id="email" name="email"><br><br>
+                <button type="submit">Cadastrar Aluno</button>
+            </form>
+        </section>
+        <h2>Lista de Alunos</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Matrícula</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <section>
+            <h2>Detalhes das Notas do Aluno</h2>
+            <p><strong>Notas:</strong> (Nenhuma nota selecionada)</p>
+            <p><strong>Média:</strong> -</p>
+            <h3>Adicionar Nova Nota</h3>
+            <form id="formNota">
+                <label for="disciplina">Disciplina:</label><br>
+                <input type="text" id="disciplina" name="disciplina"><br><br>
+                <label for="nota">Nota:</label><br>
+                <input type="number" id="nota" name="nota" step="0.01" min="0" max="10"><br><br>
+                <button type="submit">Salvar Nota</button>
+            </form>
+        </section>
+    </main>
+    <script>
+class APIFlask {
+    async criarAluno(dadosAluno) {
+        const res = await fetch('http://127.0.0.1:5000/alunos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dadosAluno)
+        });
+        if (!res.ok) throw new Error('Erro ao criar aluno');
+        return await res.json();
+    }
+    async obterAlunos() {
+        const res = await fetch('http://127.0.0.1:5000/alunos');
+        if (!res.ok) throw new Error('Erro ao obter alunos');
+        return await res.json();
+    }
+    async obterNotas(alunoId) {
+        const res = await fetch(`http://127.0.0.1:5000/alunos/${alunoId}/notas`);
+        if (!res.ok) throw new Error('Erro ao obter notas');
+        return await res.json();
+    }
+    async adicionarNota(alunoId, nota) {
+        const res = await fetch('http://127.0.0.1:5000/notas', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                aluno_id: alunoId,
+                disciplina: nota.disciplina,
+                nota: nota.valor
+            })
+        });
+        if (!res.ok) throw new Error('Erro ao adicionar nota');
+        return await res.json();
+    }
+}
+
+class SistemaGerenciamentoAlunos {
+    constructor() {
+        this.api = new APIFlask();
+        this.alunoSelecionado = null;
+        this.inicializarEventListeners();
+        this.carregarAlunos();
+    }
+    inicializarEventListeners() {
+        const formCadastro = document.getElementById('formCadastro');
+        formCadastro.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value.trim();
+            const matricula = document.getElementById('matricula').value.trim();
+            const email = document.getElementById('email').value.trim();
+            if (!nome || !matricula || !email) {
+                this.mostrarMensagem('Preencha todos os campos!', 'erro');
+                return;
+            }
+            try {
+                await this.api.criarAluno({ nome, matricula, email });
+                formCadastro.reset();
+                this.mostrarMensagem('Aluno cadastrado com sucesso!', 'sucesso');
+                this.carregarAlunos();
+            } catch (error) {
+                this.mostrarMensagem('Erro ao cadastrar aluno: ' + error.message, 'erro');
+            }
+        });
+        const formNota = document.getElementById('formNota');
+        formNota.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!this.alunoSelecionado) {
+                this.mostrarMensagem('Selecione um aluno primeiro!', 'erro');
+                return;
+            }
+            const disciplina = document.getElementById('disciplina').value.trim();
+            const nota = parseFloat(document.getElementById('nota').value);
+            if (!disciplina) {
+                this.mostrarMensagem('Digite o nome da disciplina!', 'erro');
+                return;
+            }
+            if (isNaN(nota) || nota < 0 || nota > 10) {
+                this.mostrarMensagem('A nota deve ser um número entre 0 e 10!', 'erro');
+                return;
+            }
+            try {
+                await this.api.adicionarNota(this.alunoSelecionado.id, { disciplina, valor: nota });
+                formNota.reset();
+                this.mostrarMensagem('Nota adicionada com sucesso!', 'sucesso');
+                await this.selecionarAluno(this.alunoSelecionado.id); // Atualiza detalhes
+                this.carregarAlunos();
+            } catch (error) {
+                this.mostrarMensagem('Erro ao adicionar nota: ' + error.message, 'erro');
+            }
+        });
+    }
+    async carregarAlunos() {
+        try {
+            const alunos = await this.api.obterAlunos();
+            this.renderizarTabelaAlunos(alunos);
+        } catch (error) {
+            this.mostrarMensagem('Erro ao carregar alunos: ' + error.message, 'erro');
+        }
+    }
+    renderizarTabelaAlunos(alunos) {
+        const tbody = document.querySelector('tbody');
+        tbody.innerHTML = '';
+        alunos.forEach(aluno => {
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td>${aluno.nome}</td>
+                <td>${aluno.matricula}</td>
+                <td>${aluno.email}</td>
+                <td>
+                    <button type="button" onclick="sistema.selecionarAluno(${aluno.id})" style="margin: 2px; padding: 5px 10px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer;">Selecionar</button>
+                </td>
+            `;
+        });
+    }
+    async selecionarAluno(id) {
+        try {
+            const alunos = await this.api.obterAlunos();
+            this.alunoSelecionado = alunos.find(a => a.id === id);
+            if (!this.alunoSelecionado) throw new Error('Aluno não encontrado');
+            const notasData = await this.api.obterNotas(id);
+            this.alunoSelecionado.notas = notasData.notas.map(n => ({
+                disciplina: n.disciplina,
+                valor: n.nota,
+                data: '' // Adapte se quiser mostrar data
+            }));
+            this.exibirDetalhesAluno();
+            this.mostrarMensagem(`Aluno ${this.alunoSelecionado.nome} selecionado!`, 'sucesso');
+        } catch (error) {
+            this.mostrarMensagem('Erro ao selecionar aluno: ' + error.message, 'erro');
+        }
+    }
+    exibirDetalhesAluno() {
+        if (!this.alunoSelecionado) return;
+        const media = this.calcularMedia(this.alunoSelecionado.notas);
+        const detalhesSection = document.querySelector('section:last-of-type');
+        let notasTexto = '';
+        if (this.alunoSelecionado.notas.length > 0) {
+            notasTexto = this.alunoSelecionado.notas.map(nota =>
+                `${nota.disciplina}: ${nota.valor}`
+            ).join('<br>');
+        } else {
+            notasTexto = 'Nenhuma nota cadastrada';
+        }
+        const status = media >= 7 ? 
+            '<span style="color:#00f5a8;font-weight:bold;">Aprovado</span>' : 
+            '<span style="color:#ff4d4f;font-weight:bold;">Reprovado</span>';
+        const paragrafos = detalhesSection.querySelectorAll('p');
+        paragrafos[0].innerHTML = `<strong>Aluno Selecionado:</strong> ${this.alunoSelecionado.nome} (${this.alunoSelecionado.matricula})<br><strong>Notas:</strong><br>${notasTexto}`;
+        paragrafos[1].innerHTML = `<strong>Média:</strong> ${media.toFixed(2)}<br><strong>Status:</strong> ${status}`;
+    }
+    calcularMedia(notas) {
+        if (!notas || notas.length === 0) return 0;
+        const soma = notas.reduce((acc, nota) => acc + nota.valor, 0);
+        return parseFloat((soma / notas.length).toFixed(2));
+    }
+    mostrarMensagem(mensagem, tipo) {
+        const mensagemDiv = document.getElementById('mensagem');
+        mensagemDiv.textContent = mensagem;
+        mensagemDiv.style.cssText = `
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            ${tipo === 'sucesso' ? 'background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;' : 'background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;'}
+        `;
+        setTimeout(() => {
+            mensagemDiv.textContent = '';
+            mensagemDiv.style.cssText = '';
+        }, 3000);
+    }
+}
+let sistema;
+document.addEventListener('DOMContentLoaded', function() {
+    sistema = new SistemaGerenciamentoAlunos();
+});
+    </script>
+</body>
+</html>
